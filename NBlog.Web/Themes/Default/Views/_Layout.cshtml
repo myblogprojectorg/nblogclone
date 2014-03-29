@@ -1,0 +1,154 @@
+﻿@using System.Reflection
+@model NBlog.Web.Application.Infrastructure.LayoutModel
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+	<meta charset="utf-8">
+	<!--[if IE]><![endif]-->
+
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>@(ViewBag.Title ?? Model.Config.Title)</title>
+    <meta name="description" content="@Model.Config.MetaDescription">
+	<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;">
+
+    <link href="~/Themes/Default/customStyle.css" rel="stylesheet" />
+    <script src="~/Scripts/customLayout/arial.js"></script>
+    <script src="~/Scripts/customLayout/cuf_run.js"></script>
+    <script src="~/Scripts/customLayout/cufon-yui.js"></script>
+
+	<script src="@Url.Content("~/scripts/modernizr-1.5.min.js")"></script>
+
+</head>
+ <body>
+
+<div id="container">
+    <div class="header">
+        <div class="header_resize">
+          <div id="topbar">
+			<div id="links" class="text-links">
+                @(Model.User.IsAuthenticated ? Html.Safe("<strong>" + Model.User.FriendlyName + "</strong> |") : Html.Blank())
+                @TwitterLink(@Model.Config.TwitterUsername)
+                @Html.ActionLink("RSS", "Index", "Feed") |
+                @Html.ActionLink("Contact", "Index", "Contact") |
+				@(Model.User.IsAuthenticated ? Html.ActionLink("Sign Out", "Logout", "Authentication") : Html.ActionLink("Sign In", "Login", "Authentication"))
+			</div>
+		</div>
+          <div class="clr"></div>
+          <div class="logo">
+            <h1><a href="http://trminhtrong-001-site1.myasp.net/">NBlog Demo<br />
+              <small>TMTrong</small></a></h1>
+          </div>
+          <div class="clr"></div>
+          <img src="images/image.jpg" width="930" height="160" alt="" />
+          <div class="clr"></div>
+        </div>
+      </div>
+
+  <div class="content">
+    <div class="content_resize">
+      <div class="mainbar">
+        <div class="article">
+              @RenderBody()
+        </div>
+      </div>
+      <div class="sidebar">
+        <div class="searchform">
+          <form id="formsearch" name="formsearch" method="post" action="#">
+            <input name="button_search" src="images/search_btn.gif" class="button_search" type="image" />
+            <span>
+            <input name="editbox_search" class="editbox_search" id="editbox_search" maxlength="80" value="Search" type="text" />
+            </span>
+            <div class="clr"></div>
+          </form>
+        </div>
+        <div class="gadget">
+          <h2 class="star"><span>Sidebar</span> Menu</h2>
+          <ul class="sb_menu">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">TemplateInfo</a></li>
+            <li><a href="#">Style Demo</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Archives</a></li>
+            <li><a href="#">Website Templates</a></li>
+          </ul>
+        </div>
+        <div class="gadget">
+          <h2 class="star"><span>Sponsors</span></h2>
+          <ul class="ex_menu">
+            <li><a href="#">DreamTemplate</a><br />
+              Over 6,000+ Premium Web Templates</li>
+            <li><a href="#">TemplateSOLD</a><br />
+              Premium WordPress &amp; Joomla Themes</li>
+            <li><a href="#">ImHosted.com</a><br />
+              Affordable Web Hosting Provider</li>
+            <li><a href="#">DreamStock</a><br />
+              Download Amazing Stock Photos</li>
+            <li><a href="#">Evrsoft</a><br />
+              Website Builder Software &amp; Tools</li>
+            <li><a href="#">MyVectorStore</a><br />
+              Royalty Free Stock Icons</li>
+          </ul>
+        </div>
+      </div>
+      <div class="clr"></div>
+    </div>
+  </div>
+
+
+	<footer class="text-links">
+        Powered by <a href="http://chrisfulstow.com/nblog">NBlog</a> Build @BuildNumberProvider.GetBuildNumber()
+	</footer>
+</div>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+<script>    !window.jQuery && document.write('<script src="/resources/scripts/jquery-1.4.4.min.js"><\/script>')</script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js"></script>
+<script src="@Url.Action("JavaScript", "Resource")"></script>
+
+<script>
+    $(function () {
+        $.datepicker.setDefaults({
+            dateFormat: 'dd M yy',
+            changeMonth: true,
+            changeYear: true,
+            constrainInput: true,
+            currentText: 'Today',
+            showAnim: 'slide',
+            showButtonPanel: true
+
+        });
+        $("#search .box").watermark("search");
+        $("input:submit, input:button, a.button, button").button();
+        var a = $("pre:has(code)").addClass("prettyprint");
+    });
+</script>
+
+@RenderSection("Scripts", required: false)
+
+<!--[if lt IE 7 ]>
+<script src="/resources/scripts/js/dd_belatedpng.js?v=1"></script>
+<![endif]-->
+
+@*<script src="/resources/scripts/profiling/yahoo-profiling.min.js?v=1"></script>
+<script src="/resources/scripts/profiling/config.js?v=1"></script>*@
+
+@if (!string.IsNullOrWhiteSpace(Model.Config.GoogleAnalyticsId))
+{
+<script>
+    var _gaq = [['_setAccount', '@Model.Config.GoogleAnalyticsId'], ['_trackPageview']];
+    (function (d, t) {
+        var g = d.createElement(t), s = d.getElementsByTagName(t)[0];
+        g.async = true; g.src = '//www.google-analytics.com/ga.js'; s.parentNode.insertBefore(g, s);
+    })(document, 'script');
+</script>
+}
+ 
+</body>
+</html>
+
+@helper TwitterLink(string twitterUsername) {
+    if (!string.IsNullOrWhiteSpace(twitterUsername))
+    {
+         <a href="http://twitter.com/@twitterUsername" target="_blank">Twitter</a> <text>|</text> 
+    }
+}

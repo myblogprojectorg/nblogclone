@@ -1,0 +1,33 @@
+﻿{
+	"Site": "localhost-8080",
+	"Theme": "Default",
+	"MetaDescription": "NBlog, an ASP.NET MVC 3.0 blog platform.",
+	"Heading": "NBlog",
+	"Title": "NBlog",
+	"Tagline": "A blog platform for ASP.NET MVC developers",
+	"Crossbar": "ASP.NET MVC 3.0, Razor, JSON.NET, Markdown, Autofac, AntiXSS, HTML5 & CSS3, OpenID, NSubstitute, ELMAH",
+	"Admins":
+	[
+		"https://www.google.com/accounts/o8/id?id=AItOawn7IQy_I2dt8pHaTOND133b_M4A7HTHwxM"
+	],
+	"GoogleAnalyticsId": "",
+	"TwitterUsername": "twitter",
+	"ContactForm":
+	{
+		"RecipientName": "NBlog Admin",
+		"RecipientEmail": "nblog-admin@mailinator.com",
+		"Subject": "NBlog contact form"
+	},
+	Cloud:
+	{
+		"ConsumerKey": "DropBox_Key",
+		"ConsumerSecret": "DropBox_Secret",
+		"UserToken": "DropBox_UserToken",
+		"UserSecret": "DropBox_UserSecret"
+	},
+	Disqus:
+	{
+		"Shortname": "",
+		"DevelopmentMode": true
+	}
+}
